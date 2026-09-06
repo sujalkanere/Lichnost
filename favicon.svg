@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="#221D14"/>
+  <!-- five-strand constellation -->
+  <circle cx="32" cy="17" r="4.2" fill="#6D5AE6"/>
+  <circle cx="45.5" cy="25.5" r="4.2" fill="#0FA08B"/>
+  <circle cx="40" cy="44" r="4.2" fill="#DE7E00"/>
+  <circle cx="24" cy="44" r="4.2" fill="#CF4A6E"/>
+  <circle cx="18.5" cy="25.5" r="4.2" fill="#3A67CF"/>
+  <circle cx="32" cy="17" r="1.4" fill="#F3EFE6" opacity=".85"/>
+</svg>
