@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Lichnost — a personality portrait in five strands</title>
+  <meta name="description" content="Answer 25 honest questions and see a portrait of your personality across the five strands — openness, conscientiousness, extraversion, agreeableness, stability. Private by design: nothing leaves your browser.">
+  <meta name="theme-color" content="#F3EFE5">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+  <!-- soft watercolor backdrop (decorative) -->
+  <div class="backdrop" aria-hidden="true">
+    <i class="bloom bloom--o"></i>
+    <i class="bloom bloom--a"></i>
+    <i class="bloom bloom--s"></i>
+    <i class="grain"></i>
+  </div>
+
+  <div id="app">
+
+    <!-- ══════════════════════ HOME ══════════════════════ -->
+    <section class="screen" id="screen-home" aria-label="Welcome">
+      <header class="topbar wrap">
+        <button class="wordmark" data-nav-home type="button" aria-label="Lichnost — home">lichnost<em>.</em></button>
+        <span class="topbar-note" id="home-top-note">личность · the Russian word for <em>personality</em></span>
+      </header>
+
+      <div class="wrap">
+        <div class="hero">
+          <p class="eyebrow">ЛИЧНОСТЬ · A SELF-PORTRAIT IN FIVE STRANDS</p>
+          <h1 class="hero-title">What makes <em>you</em>, you?</h1>
+          <p class="hero-lede">Twenty-five quiet questions. No right answers — just honest ones.
+            Lichnost reads your answers across the five strands of personality
+            and draws a portrait worth sitting with.</p>
+
+          <div class="hero-cta">
+            <button class="btn btn--primary btn--xl" id="btn-start" type="button">
+              <span id="start-label">Begin the questionnaire</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="hero-meta">5 strands&ensp;·&ensp;25 questions&ensp;·&ensp;~4 minutes&ensp;·&ensp;no account</p>
+          </div>
+        </div>
+
+        <div class="home-col">
+          <section class="strands" aria-labelledby="strands-title">
+            <div class="section-head">
+              <h2 id="strands-title">The five strands</h2>
+              <p>Every portrait is woven from these — each one a spectrum, neither end better than the other.</p>
+            </div>
+            <ul class="strand-list" id="strand-list"><!-- rendered by app.js --></ul>
+          </section>
+
+          <section class="history" id="history-section" aria-labelledby="history-title" hidden>
+            <div class="section-head">
+              <h2 id="history-title">Your past portraits</h2>
+              <p>Personality drifts with seasons. Retake any time and watch the shape of it move.</p>
+            </div>
+            <ul class="history-list" id="history-list"><!-- rendered by app.js --></ul>
+          </section>
+        </div>
+      </div>
+
+      <footer class="sitefoot wrap">
+        <p><strong>An honest mirror, not a verdict.</strong> Lichnost is inspired by the Big Five model of personality research.
+          It is a tool for self-reflection, not a clinical or certified assessment.</p>
+        <p>Answers never leave this device — they are stored only in your own browser, and you can erase them at any time.</p>
+      </footer>
+    </section>
+
+    <!-- ══════════════════════ QUIZ ══════════════════════ -->
+    <section class="screen" id="screen-quiz" aria-label="Questionnaire" hidden>
+      <header class="topbar topbar--quiz wrap">
+        <button class="wordmark" data-nav-home type="button" aria-label="Lichnost — home">lichnost<em>.</em></button>
+        <span class="q-count" id="q-count" aria-live="polite">Question 1 of 25</span>
+      </header>
+      <div class="progressbar wrap" aria-hidden="true">
+        <i id="progress-fill"></i>
+      </div>
+
+      <div class="wrap quiz-wrap">
+        <div class="quiz-card" id="quiz-card">
+          <p class="quiz-kicker" id="quiz-kicker">How true is this of you?</p>
+          <h2 class="quiz-statement" id="quiz-statement"></h2>
+
+          <div class="answers" id="answers" role="group" aria-label="Choose how true the statement is for you">
+            <!-- 5 option rows rendered by app.js -->
+          </div>
+
+          <div class="quiz-foot">
+            <button class="linkbtn" id="btn-back" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              <span id="back-label">Back</span>
+            </button>
+            <span class="keyhint">keys <kbd>1</kbd>–<kbd>5</kbd> work too</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ WORKING ══════════════════════ -->
+    <section class="screen screen--center" id="screen-working" aria-label="Drawing your portrait" hidden>
+      <div class="working">
+        <div class="working-dots" id="working-dots" aria-hidden="true"></div>
+        <p class="working-title" id="working-title">Reading your answers…</p>
+        <p class="working-sub" id="working-sub"></p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ RESULT ══════════════════════ -->
+    <section class="screen" id="screen-result" aria-label="Your portrait" hidden>
+      <header class="topbar wrap">
+        <button class="wordmark" data-nav-home type="button" aria-label="Lichnost — home">lichnost<em>.</em></button>
+        <span class="topbar-note" id="result-top-note">a portrait, not a prison</span>
+      </header>
+
+      <div class="wrap result-wrap">
+        <div class="result-head">
+          <p class="result-date" id="result-date"></p>
+          <div class="result-actions">
+            <button class="btn btn--ghost" id="btn-copy" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span id="copy-label">Copy summary</span>
+            </button>
+            <button class="btn btn--primary" id="btn-retake" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+              Take again
+            </button>
+          </div>
+        </div>
+
+        <div class="result-hero">
+          <h1 class="result-title" id="result-title"></h1>
+          <div class="result-badges" id="result-badges"></div>
+        </div>
+
+        <div class="result-grid">
+          <div class="card radar-card">
+            <div class="card-head">
+              <h2>The shape of it</h2>
+              <p>Each point is how strongly a strand showed in your answers.</p>
+            </div>
+            <div class="radar-holder" id="radar-holder" aria-hidden="true"></div>
+            <p class="radar-note">scores are drawn from the centre outward · 0 – 100</p>
+          </div>
+
+          <div class="trait-cards" id="trait-cards"><!-- rendered by app.js --></div>
+        </div>
+
+        <p class="result-footnote" id="result-footnote"></p>
+      </div>
+
+      <footer class="sitefoot wrap">
+        <p>Inspired by the Big Five model of personality — a mirror for reflection, not a clinical assessment.
+          Your portrait lives only in this browser.</p>
+      </footer>
+    </section>
+  </div>
+
+  <noscript><p style="font-family:system-ui;padding:2rem;text-align:center">Lichnost needs JavaScript to draw your portrait. Please enable it and reload.</p></noscript>
+</body>
+</html>
