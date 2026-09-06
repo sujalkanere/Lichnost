@@ -91,4 +91,23 @@ app.js            the whole application (state, scoring, rendering)
 assets/fonts.css  @font-face declarations
 assets/fonts/     self-hosted variable fonts (latin + cyrillic for ЛИЧНОСТЬ)
 favicon.svg       five-strand constellation mark
+test/             headless QA (see below)
 ```
+
+## Testing
+
+Two zero-framework checks live in `test/`:
+
+```bash
+cd test && npm install   # pulls jsdom (dev-only)
+npm test                 # smoke suite, then static cross-checks
+```
+
+- `smoke.js` loads the real `index.html` + `app.js` in jsdom and drives the UI
+  end-to-end: boot, click & keyboard answering, back-navigation, draft
+  persistence + resume, the full 25-question run, working→result transition,
+  radar & trait rendering, exact reverse-scoring math, history open/delete,
+  and the copy-summary button.
+- `crosscheck.js` statically verifies that every id and class the JavaScript
+  touches exists in the HTML/CSS, and that no dead selectors linger.
+

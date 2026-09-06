@@ -1,0 +1,13 @@
+{
+  "name": "lichnost-tests",
+  "private": true,
+  "description": "Headless QA for Lichnost (jsdom smoke suite + static cross-checks)",
+  "scripts": {
+    "smoke": "node smoke.js",
+    "crosscheck": "node crosscheck.js",
+    "test": "npm run smoke && npm run crosscheck"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
